@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Tip Calculator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #6f42c1; /* Purple background */
+        }
+        .card {
+            background-color: white; /* Card background to white for contrast */
+            color: black; /* Text color for card */
+        }
+        .input-group-addon {
+            background-color: #e0aaff; /* Light purple */
+            color: black;
+        }
+        #results {
+            display: none; /* Hide results initially */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card card-body text-center mt-5">
+                    <h1 class="heading display-5 pb-3">Tip Calculator</h1>
+                    <form id="tip-form">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="number" class="form-control" id="billTotal" placeholder="Total Bill">
+                            </div>
+                        </div>
+                        <div class="form-group tipPercent">
+                            <div class="input-group">
+                                <label for="">Tip:</label>
+                                <input type="range" class="form-control" id="tipInput" value="0" min="0" max="100">
+                                <span class="input-group-addon" id="tipOutput">0%</span>
+                            </div>
+                        </div>
+                    </form>
+                    <hr>
+                    <div id="results" class="pt-4">
+                        <h5>Results</h5>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Tip amount</span>
+                                <input type="number" class="form-control" id="tipAmount" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Total Bill with Tip</span>
+                                <input type="number" class="form-control" id="totalBillWithTip" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <script>
+        document.querySelector('#tip-form').onchange = function() {
+            var bill = Number(document.getElementById('billTotal').value);
+            var tip = document.getElementById('tipInput').value;
+            document.getElementById('tipOutput').innerHTML = `${tip}%`;
+            var tipValue = bill * (tip / 100);
+            var finalBill = bill + tipValue;
+
+            var tipAmount = document.querySelector('#tipAmount');
+            var totalBillWithTip = document.querySelector('#totalBillWithTip');
+            
+            tipAmount.value = tipValue.toFixed(2);
+            totalBillWithTip.value = finalBill.toFixed(2);
+            
+            document.getElementById('results').style.display = 'block';
+        };
+    </script>
+</body>
+</html>
